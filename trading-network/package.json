@@ -1,0 +1,41 @@
+{
+  "engines": {
+    "composer": "^0.20.6"
+  },
+  "name": "trading-network",
+  "version": "0.0.1",
+  "description": "commodity trading network",
+  "scripts": {
+    "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/trading-network.bna",
+    "pretest": "npm run lint",
+    "lint": "eslint .",
+    "createArchive": "composer archive create  --sourceType dir --sourceName . -a trading-network.bna",
+    "installNetwork" : "composer network install --card PeerAdmin@hlfv1 --archiveFile trading-network.bna",
+    "networkStart" : "composer network start --networkName trading-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file trading-network.card",
+    "importCard" : "composer card import --file trading-network.card",
+    "pingNetwork" : "composer network ping -c admin@trading-networkn",
+    "cp" : "composer-playground"
+  },
+  "keywords": [
+    "composer",
+    "composer-network"
+  ],
+  "author": "Sudheer",
+  "email": "sudheer@example.com",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "composer-admin": "^0.20.6",
+    "composer-cli": "^0.20.6",
+    "composer-client": "^0.20.6",
+    "composer-common": "^0.20.6",
+    "composer-connector-embedded": "^0.20.6",
+    "composer-cucumber-steps": "^0.20.6",
+    "chai": "latest",
+    "chai-as-promised": "latest",
+    "cucumber": "^2.2.0",
+    "eslint": "latest",
+    "nyc": "latest",
+    "mkdirp": "latest",
+    "mocha": "latest"
+  }
+}

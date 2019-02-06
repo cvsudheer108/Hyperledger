@@ -1,0 +1,89 @@
+namespace org.acme.enginesupplychain
+
+/*
+ * Concepts
+ */
+
+concept EngineProperties {
+    o String brand
+    o String model
+    o Double horsePower
+    o Double cubicCapacity
+    o Integer cylindersAmount
+}
+
+concept Address {
+    o String country
+    o String city
+    o String street
+    o String streetNo
+}
+
+/*
+ * Assets
+ */
+
+asset Engine identified by engineId {
+    o String engineId
+    o EngineProperties data
+
+    --> Manufacturer manufacturer
+    --> Car currentCar optional
+    --> Merchant merchant optional
+}
+
+asset Car identified by carId {
+    o String carId
+    o String legalDocumentId
+}
+
+/*
+ * Participants
+ */
+
+participant Member identified by memberId {
+  o String memberId
+  o String name
+  o Address address optional
+}
+
+participant Manufacturer extends Member {
+}
+
+participant Merchant extends Member {
+}
+
+/*
+ * Transactions
+ */
+
+transaction EngineMerchantTransfer {
+ 	  --> Engine engine
+    --> Merchant merchant
+}
+
+transaction EngineCarInstallation {
+    --> Engine engine
+    --> Car car
+}
+
+transaction EngineCreation {
+    --> Manufacturer manufacturer
+    o EngineProperties data
+}
+
+transaction CarCreation {
+    o String legalIdDocument
+}
+
+// TODO: transaction logic and unit tests not yet implemented
+
+// transaction WarrantyClaim {
+//     --> Engine engine
+//     --> Car car
+// }
+
+// transaction StolenReport {
+//     --> Engine engine
+//     --> Car car
+// }
